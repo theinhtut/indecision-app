@@ -4,6 +4,6 @@
 
 # Theindecision App 
 
-Thein_decision or The_indecision App? Can't decide what to choise? List down what you wanna do, let the app decide for you.  
+Thein_decision or The_indecision App? Can't decide what to choose? List down what you wanna do, let the app decide for you.  
 <br>
-![](./public/images/2019-03-27-17-22-17.png)
+![](./public/images/FHnXI6hAQO.gif)
