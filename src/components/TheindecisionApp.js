@@ -1,4 +1,5 @@
 import React from 'react';
+import { createClient } from '@supabase/supabase-js';
 import AddOption from './AddOption';
 import Header from './Header';
 import Action from './Action';
@@ -58,16 +59,48 @@ export default class TheindecisionApp extends React.Component {
     } catch (e) {
       // Do nothing at all
     }
+    this.fetchOptions()
   }
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.options.length !== this.state.options.length) {
-      const json = JSON.stringify(this.state.options);
-      localStorage.setItem('options', json);
-      console.log('Componet did update');
-    }
+    // if (prevState.options.length !== this.state.options.length) {
+    //   const json = JSON.stringify(this.state.options);
+    //   localStorage.setItem('options', json);
+    //   console.log('Componet did update');
+    // }
   }
   componentWillUnmount() {
     console.log('sadfsdfsdffds');
+  }
+  fetchOptions = async () => {
+    const SUPABASE_API_URL = process.env.SUPABASE_API_URL
+    const SUPABASE_KEY = process.env.SUPABASE_KEY
+    const supabase = createClient(SUPABASE_API_URL, SUPABASE_KEY)
+    const optionsArray = []
+    try {
+      let { body } = await supabase
+        .from('options')
+        .select('*')
+      body.map((optionItem)=>{
+        optionsArray.push(optionItem.description)
+      })
+      // console.log(optionsArray)
+      this.setState({ options: optionsArray })
+    } catch (error) {
+      console.log('Error: ', error)
+    }
+    // const options = await supabase.from('options').select('*')
+    // const aa = async function f1() {
+    //   var x = await supabase.from('options').select('*')
+    //   return x
+    //   // console.log(x); // 10
+    // }
+
+    // f1()
+    // console.log(SUPABASE_API_URL)
+    // console.log(SUPABASE_KEY)
+    // const xx = options().then()
+    // console.log(xx);
+    // console.log(aa())
   }
 
   render() {
